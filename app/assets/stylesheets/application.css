@@ -8,3 +8,10 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ #container{
+    display: flex;
+ }
+ #calendar{
+    width: 70%;
+ }

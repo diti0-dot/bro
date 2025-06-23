@@ -69,3 +69,5 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem "devise", "~> 4.9"
+
+gem "simple_calendar", "~> 3.1"
