@@ -10,11 +10,9 @@ class User < ApplicationRecord
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.email = auth.info.email
         user.password = Devise.friendly_token[0, 20]
-        
-        # Save tokens for Gmail API access
-        user.google_token = auth.credentials.token
-        user.google_refresh_token = auth.credentials.refresh_token
-        user.google_expires_at = auth.credentials.expires_at
+         user.token = auth.credentials.token
+        user.token_expires_at = Time.at(auth.credentials.expires_at)
+      
       end
   end
 end

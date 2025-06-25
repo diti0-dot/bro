@@ -31,3 +31,31 @@
     </div>
   </div>
 </div>
+
+
+<!-- app/views/emails/index.html.erb -->
+
+<div class="container mt-4">
+  <h2>Emails from cleo@gmail.com</h2>
+
+  <% if @full_messages.any? %>
+    <h2><%= @full_messages.count %></h2>
+    <ul class="list-group">
+      <% @full_messages.each do |message| %>
+        <% payload = message["payload"] %>
+        <% headers = payload["headers"] %>
+        <% subject = headers.find { |h| h["name"] == "Subject" }&.dig("value") || "(No Subject)" %>
+        <% snippet = message["snippet"] || "" %>
+
+        <li class="list-group-item">
+          <strong><%= subject %></strong><br>
+          <small><%= snippet %></small>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      No messages found from cleo@gmail.com.
+    </div>
+  <% end %>
+</div>

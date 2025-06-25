@@ -1,9 +1,24 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
   # GET /events or /events.json
   def index
     @events = Event.all
+    response = HTTParty.get(
+      "https://gmail.googleapis.com/gmail/v1/users/me/messages?q=from:girts.karnitis@lu.lv",
+      headers: {
+        "Authorization" => "Bearer #{current_user.token}"
+      }
+    )
+
+    @messages = JSON.parse(response.body)["messages"] || []
+
+    @full_messages = @messages.map do |msg|
+  HTTParty.get(
+    "https://gmail.googleapis.com/gmail/v1/users/me/messages/#{msg['id']}",
+    headers: { "Authorization" => "Bearer #{current_user.token}" }
+  )
+end
   end
 
   # GET /events/1 or /events/1.json

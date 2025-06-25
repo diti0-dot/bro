@@ -71,3 +71,5 @@ gem 'omniauth-rails_csrf_protection'
 gem "devise", "~> 4.9"
 
 gem "simple_calendar", "~> 3.1"
+
+gem "httparty", "~> 0.23.1"
